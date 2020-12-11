@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Nov-2020 às 16:02
+-- Tempo de geração: 12-Dez-2020 às 00:48
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.4.11
 
@@ -29,9 +29,9 @@ USE `fseletro`;
 -- Estrutura da tabela `comentarios`
 --
 
-DROP TABLE IF EXISTS `comentarios`;
 CREATE TABLE `comentarios` (
   `id_comentarios` int(11) NOT NULL,
+  `idproduto` int(11) NOT NULL,
   `nome` varchar(100) DEFAULT NULL,
   `msg` varchar(300) DEFAULT NULL,
   `data` datetime DEFAULT current_timestamp()
@@ -41,9 +41,10 @@ CREATE TABLE `comentarios` (
 -- Extraindo dados da tabela `comentarios`
 --
 
-INSERT INTO `comentarios` (`id_comentarios`, `nome`, `msg`, `data`) VALUES
-(1, 'Amanda', 'Primeira mensagem', '2020-11-01 12:40:55'),
-(2, 'Amanda', 'Primeira mensagem', '2020-11-01 12:40:58');
+INSERT INTO `comentarios` (`id_comentarios`, `idproduto`, `nome`, `msg`, `data`) VALUES
+(1, 1, 'Amanda', 'Amei a geladeira', '2020-12-10 23:17:31'),
+(2, 11, 'Anonimous', 'Péssimo', '2020-12-10 23:18:03'),
+(3, 3, 'Matheus', 'Não gostei', '2020-12-11 17:37:35');
 
 -- --------------------------------------------------------
 
@@ -51,7 +52,6 @@ INSERT INTO `comentarios` (`id_comentarios`, `nome`, `msg`, `data`) VALUES
 -- Estrutura da tabela `pedidos`
 --
 
-DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE `pedidos` (
   `idpedido` int(11) NOT NULL,
   `nome_cliente` varchar(80) NOT NULL,
@@ -69,7 +69,21 @@ CREATE TABLE `pedidos` (
 
 INSERT INTO `pedidos` (`idpedido`, `nome_cliente`, `endereco_cliente`, `email_cliente`, `nome_produto`, `valorunitario`, `quantidade`, `valortotal`) VALUES
 (11, 'Amanda Regina', 'Rua Frei João, 3 - Ipiranga, SP', 'amanda@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 2, NULL),
-(12, 'Matheus Moreira', 'Rua João Vicente, 1080 - Jardim Moura - SP', 'matheus@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 1, NULL);
+(12, 'Matheus Moreira', 'Rua João Vicente, 1080 - Jardim Moura - SP', 'matheus@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 1, NULL),
+(13, 'Felipe Dias', 'Avenida Martins Fontes, 536 - Jardim Silvana - SP', 'felipedias@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 3, NULL),
+(14, 'Ana Luiza Santos', 'Rua Maria Marcolina, 123 - Vila Endres -SP', 'ana@recode.com', 'Lavadora de Roupas Philco Inverse', NULL, 1, NULL),
+(15, 'Harry Potter', 'Travessa do Tranco, 456 - Hogsmeade - LDN', 'harry@recode.com', 'Lava-Louças Eletrolux Inox com 10 Serviços, 06 Programas de Lavagem e Painel Blue Touch', NULL, 2, NULL),
+(16, 'Lilian Potter', 'Travessa do Tranco, 456 - Hogsmeade - LDN', 'lilian@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 1, NULL),
+(17, 'Lilian Potter', 'Travessa do Tranco, 456 - Hogsmeade - LDN', 'lilian@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 1, NULL),
+(18, 'Lilian Potter', 'Travessa do Tranco, 456 - Hogsmeade - LDN', 'lilian@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 1, NULL),
+(19, 'Lilian Potter', 'Travessa do Tranco, 456 - Hogsmeade - LDN', 'lilian@recode.com', 'Geladeira Frost Free Consul Prata 340 litros', NULL, 1, NULL),
+(21, '', 'ds', 'asaa', 'asfg', '12.00', 2, '3.00'),
+(22, '', 'ds', 'asaa', 'asfg', '12.00', 2, '3.00'),
+(23, '', 'sdf', 'ghk', 'ghjk', '123.00', 1, '66.00'),
+(24, '', 'Patricio Gomes de Menezes', 'amanda.regina.200740@gmail.com', 'Geladeira Frost Free Brastemp Inverse 540 litros', '1.00', 1, '1.00'),
+(25, '', 'jhgf', 'gfds', 'Lava-Louças Eletrolux Inox com 10 Serviços, 06 Programas de Lavagem e Painel Blue Touch', '3.00', 1, '9.00'),
+(26, 'mnbvc', 'mnbv', 'mnbv', 'Micro-ondas Consul 32 Litros Inox 220V', '5.00', 2, '1.00'),
+(27, 'asd', 'df', 'gd', 'Geladeira Frost Free Brastemp Inverse 540 litros', '1.00', 1, '1.00');
 
 -- --------------------------------------------------------
 
@@ -77,7 +91,6 @@ INSERT INTO `pedidos` (`idpedido`, `nome_cliente`, `endereco_cliente`, `email_cl
 -- Estrutura da tabela `produto`
 --
 
-DROP TABLE IF EXISTS `produto`;
 CREATE TABLE `produto` (
   `idproduto` int(11) NOT NULL,
   `categoria` varchar(45) NOT NULL,
@@ -92,7 +105,7 @@ CREATE TABLE `produto` (
 --
 
 INSERT INTO `produto` (`idproduto`, `categoria`, `descricao`, `preco`, `precofinal`, `imagem`) VALUES
-(1, 'geladeiras', 'Geladeira Frost Free Brastemp Inverse 540 litros', '6389.00', '5019.00', '/imagens/geladeira%20bratemp%20540l.png'),
+(1, 'geladeiras', 'Geladeira Frost Free Brastemp Inverse 540 litros', '6389.00', '5019.00', 'imagens/geladeira%20bratemp%20540l.png'),
 (2, 'geladeira', 'Geladeira Frost Free Brastemp Branca 375 litros', '2068.60', '1910.90', '/imagens/geladeira-brastemp-375l.jpg'),
 (3, 'geladeira', 'Geladeira Frost Free Consul Prata 340 litros', '2100.00', '2069.00', '/imagens/consul%20geladeira.png'),
 (4, 'fogao', 'Fogão 4 Bocas Consul Inox com Mesa de Vidro', '1200.00', '1129.00', '/imagens/fogao-consul.jpg'),
@@ -113,7 +126,8 @@ INSERT INTO `produto` (`idproduto`, `categoria`, `descricao`, `preco`, `precofin
 -- Índices para tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  ADD PRIMARY KEY (`id_comentarios`);
+  ADD PRIMARY KEY (`id_comentarios`),
+  ADD KEY `fk_idproduto` (`idproduto`);
 
 --
 -- Índices para tabela `pedidos`
@@ -136,19 +150,29 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idpedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idpedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
   MODIFY `idproduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD CONSTRAINT `fk_idproduto` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
